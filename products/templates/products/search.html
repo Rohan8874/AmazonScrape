@@ -1,0 +1,26 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<h1>Search Product</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="search_url">Product URL:</label>
+    <input type="text" name="search_url" id="search_url" required>
+    <button type="submit">Search Product</button>
+</form>
+
+{% if search_result %}
+<h2>Product Details</h2>
+<p><strong>Title:</strong> {{ search_result.Title }}</p>
+<p><strong>Price:</strong> {{ search_result.Price }}</p>
+<p><strong>Hero Image:</strong> 
+    <img src="{{ search_result|default:'products/static/default_image.jpg' }}" 
+         alt="Hero Image" 
+         style="max-width: 300px;">
+</p>
+{% else %}
+    {% if request.method == 'POST' %}
+        <p>No product found with the given URL. Please try again.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Product Scraper{% endblock %}
+
+{% block content %}
+    <h1>Enter the Product URL</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="url" placeholder="Enter product URL" style="width: 80%; padding: 10px; border-radius: 5px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #ff7e5f; border: none; border-radius: 5px; color: white; cursor: pointer;">
+            Scrape Product
+        </button>
+    </form>
+
+    {% if product_details %}
+        <hr>
+        <h1>Product Details:</h1>
+        <p>Title: {{ product_details.title }}</p>
+        <p>Price: {{ product_details.price }}</p>
+        <p>Hero Image URL: <img src="{{ product_details.hero_image_url }}" alt="Hero Image" /></p>
+    {% endif %}
+{% endblock %}
